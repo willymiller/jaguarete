@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="alert alert-info" role="alert"><h4>Alta de Productos</h4></div>
+<form enctype="multipart/form-data" action="{% url 'producto_alta' %}" method="POST" >
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="categoria" class="col-sm-2 col-form-label">Categoría: </label>
+        {{ form.categoria }} {{ form.categoria.errors }}
+    </div>
+    <div class="form-group">
+        <label for="titulo" class="col-sm-2 col-form-label">Título: </label> {{ form.titulo }} {{ form.titulo.errors }}
+    </div>
+    <div class="form-group">
+        <label for="contenido" class="col-sm-2 col-form-label">Contenido:</label> {{ form.contenido }} {{ form.contenido.errors }}
+        <script>$("#id_contenido").removeAttr("required");</script>
+    </div>
+
+    <div class="form-group">
+        <label for="imagen" class="col-sm-2 col-form-label">Imagen del Producto: </label> {{ form.imagen }} {{ form.imagen.errors }}
+    </div>
+    <div class="form-group">
+        <label for="precio" class="col-sm-2 col-form-label">Precio: </label> {{ form.precio }} {{ form.precio.errors }}
+    </div>
+    <br>
+    <div class="col-auto">
+        <a class="btn btn-secondary" href="/apps/">Volver</a>
+        <input type="submit" class="btn btn-primary" value="Guardar">
+    </div>
+</form>
+{% endblock %}

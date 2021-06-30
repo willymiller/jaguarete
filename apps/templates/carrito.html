@@ -1,0 +1,25 @@
+<!DOCTYPE HTML lang="es">
+<html lang="es">
+{% extends "layout.html" %}
+{% block content %}
+    <div class="alert alert-info" role="alert"><h4 style="text-align: center;">Carrito</h4></div>
+    <div class="row">
+        {% for producto in productos.all %}
+        <div class="row justify-content-md-center">
+            <div class="col-sm-2">
+                <div class="card" style="width: 5rem;">
+                    <img class="card-img-top" src="{{ media_url  }}{{ producto.imagen.url }}" alt="My image">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <h6 class="card-title">Título: {{ producto.titulo }}</h6>
+                <p class="card-text">Precio: {{ producto.precio }} - <a href="{% url 'producto' producto.id %}" class="btn btn-alert">X</a></p>
+                <br><br>
+            </div>
+        </div>
+        {% empty %}
+            <li>No hay productos en el Carrito.</li>
+        {% endfor %}
+    </div>
+{% endblock %}
+</html>

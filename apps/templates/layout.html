@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html lang="es">
+{% load static %}
+    <head>
+        <title>Jaguarete KAA S.A.</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="{% static 'scripts.js' %}"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row" style="background-color: azure;">
+                <div class="col-sm-4">
+                    <img src="{% static 'Logo.png' %}" alt="Jaguarete">
+                </div>
+                <div class="col-sm-8">
+                    {% if user.is_authenticated %}
+                    <ul class="nav justify-content-end">
+                        <p>Bienvenido: {{ user.get_username }} - <a href ="{% url 'logout' %}?next={% url 'index' %}">Desconectarse</a>
+                            {% if user.id == 1 %}
+                                - <a href ="/admin">Panel</a>
+                            {% else %}
+                                - <a href ="{% url 'carrito' %}">Carrito</a>
+                            {% endif %}
+                        </p>
+                    </ul>
+                    {% else %}
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                        <a class="nav-link" href="/accounts/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'usuarios:registrarse' %}">Registrarse</a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/apps/">Home</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categorías
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% for categoria in lista_categorias %}
+                                    <li><a class="dropdown-item" href="{% url 'filtro_categorias' categoria.id%}">{{ categoria }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/apps/acercade">Acerca de...</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/apps/contacto">Contacto</a>
+                        </li>
+                        {% if user.id == 1 %}
+                            <li class="nav-item">
+                            <a class="nav-link" href="/apps/producto_alta">Nuevo Producto</a>
+                            </li>
+                        {% endif %}
+                      </ul>
+                    </div>
+                    <form class="form-inline my-2 my-lg-0" method="get">
+                        <ul class="nav justify-content-end">
+                            <li><input class="form-control mr-sm-2" type="search" placeholder="Búsqueda..." name="buscar"></li>
+                            <li><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button></li>
+                        </ul>
+                    </form>
+
+                </nav>
+            </div>
+            <br>
+            {% block body %}
+                {% block content%}
+                {% endblock %}
+            {% endblock %}
+            <br>
+            <footer style="background-color: azure;">
+                <h5 style="text-align: center;">Jaguarete KAA S.A. - &2021 - Todos los derechos reservados</h5>
+                <h6 style="text-align: center;">Desarrollado por @WillyMiller</h6>
+            </footer>
+        </div>
+    </body>
+</html>

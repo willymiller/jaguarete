@@ -1,0 +1,76 @@
+<!DOCTYPE HTML lang="es">
+<html lang="es">
+{% extends "layout.html" %}
+<div class="row">
+{% block content %}
+    {% if categoria_seleccionada %}
+        <div class="alert alert-info" role="alert"><h4 style="text-align: center;">Categoría: {{ categoria_seleccionada }}</h4></div>
+        <div class="row">
+            {% for un_producto in lista_productos %}
+                <div class="col-sm-4">     
+                    <div class="card" style="width: 25rem;">
+                        <img class="card-img-top" src="{{ media_url  }}{{ un_producto.imagen.url }}" alt="My image">
+                        <div class="card-body">
+                          <h6 class="card-title">{{ un_producto.titulo }}</h6>
+                          <p class="card-text">Categoría: {{ un_producto.categoria }}</p>
+                          <a href="{% url 'producto' un_producto.id %}" class="btn btn-primary">Ver más</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            {% empty %}
+                <li>No hay articulos en ésta Sección.</li>
+            {% endfor %}
+        </div>
+    {% elif lista_busqueda %}
+    <div class="alert alert-info" role="alert"><h4 style="text-align: center;">Resultado de búsqueda:</h4></div>
+    <div class="row">
+        {% for un_producto in lista_busqueda %}
+        <div class="row justify-content-md-center">
+            <div class="col-sm-2">
+                <div class="card" style="width: 5rem;">
+                    <img class="card-img-top" src="{{ media_url  }}{{ un_producto.imagen.url }}" alt="My image">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <h6 class="card-title">Título: {{ un_producto.titulo }}</h6>
+                <p class="card-text">Contenido: {{ un_producto.contenido }} - <a href="{% url 'producto' un_producto.id %}" class="btn btn-primary">Ver más</a></p>
+                <br><br>
+            </div>
+        </div>
+        {% empty %}
+            <li>No hay articulos en ésta Sección.</li>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="alert alert-info" role="alert"><h4 style="text-align: center;">Todos los Productos</h4></div>
+        <div class="row">
+            {% for un_producto in lista_productos_principales %}
+                <div class="col-sm-4">     
+                    <div class="card" style="width: 25rem;">
+                        <img class="card-img-top" src="{{ media_url  }}{{ un_producto.imagen.url }}" alt="My image">
+                        <div class="card-body">
+                        <h6 class="card-title">{{ un_producto.titulo }}</h6>
+                        <p class="card-text">Categoría: {{ un_producto.categoria }}</p>
+                        <a href="{% url 'producto' un_producto.id %}" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            {% empty %}
+                <li>No hay articulos en ésta Sección.</li>
+            {% endfor %}
+        </div>
+        <div class="alert alert-info" role="alert"><h4 style="text-align: center;">Más Productos</h4></div>
+        <ul>
+            {% for un_producto in lista_productos %}
+                <li>            
+                    --- {{un_producto.titulo}} : {{un_producto.contenido}}
+                    <a href="{% url 'producto' un_producto.id %}" class="btn btn-primary">Ver</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+</div>
+</html>

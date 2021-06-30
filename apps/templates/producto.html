@@ -1,0 +1,22 @@
+<!DOCTYPE HTML lang="es">
+<html lang="es">
+{% extends "layout.html" %}
+{% block content %}
+    <div class="alert alert-info" role="alert"><h4 style="text-align: center;">Producto: {{producto.titulo}}</h4></div>
+    <div class="row">
+        <div class="col-sm-4">
+            <img class="card-img-top" src="{{ media_url  }}{{ producto.imagen.url }}" alt="{{ producto.titulo }}">
+        </div>
+        <div class="col-sm-8">
+            <p class="card-text">Categoría: {{ producto.categoria }}</p>
+            <p class="card-text">Descripción: {{ producto.contenido }}</p>
+            <p class="card-text">Precio: $ {{ producto.precio }}</p>
+        </div>
+    </div>
+    <br>
+    <p style="text-align: right;">
+    <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn btn-dark">Agregar al carrito</a>
+    <a href="/apps/" class="btn btn-primary">Volver</a></p>
+    <br>
+{% endblock %}
+</html>
