@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="alert alert-info" role="alert"><h4 style="text-align: center;">Alta de Productos</h4></div>
-<form enctype="multipart/form-data" action="{% url 'producto_alta' %}" method="POST" >
+<div class="alert alert-info" role="alert"><h4 style="text-align: center;">Edición de Productos</h4></div>
+<form enctype="multipart/form-data" method="POST" >
     {% csrf_token %}
     <div class="form-group">
         <label for="categoria" class="col-sm-2 col-form-label">Categoría: </label>
