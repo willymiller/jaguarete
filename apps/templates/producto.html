@@ -14,9 +14,17 @@
         </div>
     </div>
     <br>
-    <p style="text-align: right;">
-    <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn btn-dark">Agregar al carrito</a>
-    <a href="/apps/" class="btn btn-primary">Volver</a></p>
+    {% if request.user.is_staff%}
+        <p style="text-align: right;">
+            <a href="{% url 'producto_editar' producto.id %}" class="btn btn-success">Editar</a>
+            <a href="#" class="btn btn-danger">Eliminar</a>
+            <a href="/apps/" class="btn btn-primary">Volver</a>
+        </p>
+    {% else %}
+        <p style="text-align: right;">
+        <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn btn-dark">Agregar al carrito</a>
+        <a href="/apps/" class="btn btn-primary">Volver</a></p>
+    {% endif %}
     <br>
 {% endblock %}
 </html>

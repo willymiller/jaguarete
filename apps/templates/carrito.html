@@ -11,15 +11,22 @@
                     <img class="card-img-top" src="{{ media_url  }}{{ producto.imagen.url }}" alt="My image">
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 justify-content-end">
                 <h6 class="card-title">Título: {{ producto.titulo }}</h6>
-                <p class="card-text">Precio: {{ producto.precio }} - <a href="{% url 'producto' producto.id %}" class="btn btn-alert">X</a></p>
+                <p class="card-text">Precio: {{ producto.precio }} - <a href="{% url 'borrar_item_carrito' producto.id %}" class="btn btn-danger">X</a></p>
                 <br><br>
             </div>
         </div>
         {% empty %}
             <li>No hay productos en el Carrito.</li>
         {% endfor %}
+        <div class="row justify-content-md-end">
+            <div class="col-sm-4">
+                <h4>Total del Carrito: {{ precio_total }}</h4>
+                <a href="{% url 'borrar_carrito' %}" class="btn btn-danger">VACIAR CARRITO</a>
+                <a href="" class="btn btn-primary">FINALIZAR COMPRA</a>
+            </div>
+        </div>
     </div>
 {% endblock %}
 </html>
